@@ -52,7 +52,7 @@ public class TreasureHunter : MonoBehaviour
             scoreSummary.text = "Your Score: " + score;         
             itemSummary.text = "Number of Items: " + numOfItems;          
     }
-    //wow 2
+    //wow One
     public static string GetGameObjectPath(collectible obj)
     {
         string path = obj.name;
