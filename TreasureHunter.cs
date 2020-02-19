@@ -54,6 +54,7 @@ public class TreasureHunter : MonoBehaviour
     }
 
 
+    //wow
     public static string GetGameObjectPath(collectible obj)
     {
         string path = obj.name;
