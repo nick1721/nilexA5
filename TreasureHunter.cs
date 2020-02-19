@@ -7,7 +7,7 @@ public class TreasureHunter : MonoBehaviour
 {
     
     public GameObject leftPointerObject;
-    public GameObject rightPointerObject; //Quis
+    public GameObject rightPointerObject;
     public collectible[] collectiblesInScene;
     public TreasureHunterInventory inventory;
     public int score = 0;
