@@ -157,7 +157,7 @@ public class TreasureHunter : MonoBehaviour
             }
         }
     }
-    //#################################################################################
+    //##################################################################################
 
 
     //since Unity doesn't have sceneComponents like UE4, we can only attach GOs to other GOs which are children of another GO
