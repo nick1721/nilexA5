@@ -36,6 +36,8 @@ public class TreasureHunter : MonoBehaviour
 
     Vector3 previousPointerPos;
 
+    public enum AttachmentRule{KeepRelative, KeepWorld, SnapToTarget}
+
     // Update is called once per frame
     void Update()
     {
@@ -100,7 +102,7 @@ public class TreasureHunter : MonoBehaviour
             if (overlappingThings.Length>0){
                 collectible nearestCollectible=getClosestHitObject(overlappingThings);
                 attachGameObjectToAChildGameObject(nearestCollectible.gameObject,rightPointerObject,AttachmentRule.SnapToTarget,AttachmentRule.SnapToTarget,AttachmentRule.KeepWorld,true);
-                thingIGrabbed=nearestCollectible.gameObject.GetComponent<collectible>(); //confused?
+                thingIGrabbed=nearestCollectible.gameObject.GetComponent<collectible>(); //c
             }
         }
         previousPointerPos=rightPointerObject.gameObject.transform.position;
