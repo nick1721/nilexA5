@@ -161,36 +161,17 @@ public class TreasureHunter : MonoBehaviour
                     itemSummary.text += "\n # of " + item.Key.name + ": " + item.Value + ", Item Value: " + item.Key.points; 
                 }
                 detachGameObject(thingIGrabbed.gameObject,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
-                simulatePhysics(thingIGrabbed.gameObject, Vector3.zero, true);
+                simulatePhysics(thingIGrabbed.gameObject,(rightPointerObject.gameObject.transform.position-previousPointerPos)/Time.deltaTime,true);
                 Destroy(thingIGrabbed.gameObject);
                 thingIGrabbed=null;               
             }else{
                 detachGameObject(thingIGrabbed.gameObject,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
-                simulatePhysics(thingIGrabbed.gameObject, Vector3.zero, true);
+                simulatePhysics(thingIGrabbed.gameObject,(rightPointerObject.gameObject.transform.position-previousPointerPos)/Time.deltaTime,true);
                 thingIGrabbed.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
                 thingIGrabbed=null;
             }
         }
         
-    }
-
-        void letGo(){
-        if (thingIGrabbed){
-            Collider[] overlappingThingsWithLeftHand=Physics.OverlapSphere(leftPointerObject.transform.position,0.01f,collectiblesMask);
-            if (overlappingThingsWithLeftHand.Length>0){
-                if (thingOnGun){
-                    detachGameObject(thingOnGun,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
-                    simulatePhysics(thingOnGun,Vector3.zero,true);
-                }
-                attachGameObjectToAChildGameObject(overlappingThingsWithLeftHand[0].gameObject,leftPointerObject,AttachmentRule.SnapToTarget,AttachmentRule.SnapToTarget,AttachmentRule.KeepWorld,true);
-                thingOnGun=overlappingThingsWithLeftHand[0].gameObject;
-                thingIGrabbed=null;
-            }else{
-                detachGameObject(thingIGrabbed.gameObject,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
-                simulatePhysics(thingIGrabbed.gameObject,(rightPointerObject.gameObject.transform.position-previousPointerPos)/Time.deltaTime,true);
-                thingIGrabbed=null;
-            }
-        }
     }
     //##################################################################################
 
