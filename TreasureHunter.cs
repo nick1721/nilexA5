@@ -132,7 +132,7 @@ public class TreasureHunter : MonoBehaviour
                 AttachmentRule howToAttach=pressedA?AttachmentRule.KeepWorld:AttachmentRule.SnapToTarget;
                 attachGameObjectToAChildGameObject(outHit.collider.gameObject,rightPointerObject.gameObject,howToAttach,howToAttach,AttachmentRule.KeepWorld,true);
                 thingIGrabbed=outHit.collider.gameObject.GetComponent<collectible>();
-                thingIGrabbed.gameObject.transform.localScale = new Vector3(0.30f, 0.30f, 0.30f);
+                //thingIGrabbed.gameObject.transform.localScale = new Vector3(0.30f, 0.30f, 0.30f);
             } 
          
     }
