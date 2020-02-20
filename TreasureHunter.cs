@@ -22,8 +22,6 @@ public class TreasureHunter : MonoBehaviour
 
     public GameObject playerCamera;
 
-    //public RaycastHit outHit;
-
     public collectible collectedItem;
 
     public int numOfItems = 0;
@@ -72,40 +70,39 @@ public class TreasureHunter : MonoBehaviour
             */
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger)){ 
 
-            //### "Force Grab Distance";
+            // "Force Grab Distance";
             forceGrab(true);
           
         } else if (OVRInput.GetDown(OVRInput.RawButton.A)){
-            //### "Grip";
-            Collider[] overlappingThings=Physics.OverlapSphere(rightPointerObject.transform.position,0.01f,collectiblesMask);
+            // "Grip";
+            Collider[] overlappingThings=Physics.OverlapSphere(rightPointerObject.transform.position,0.05f,collectiblesMask);
             if (overlappingThings.Length>0){
                 attachGameObjectToAChildGameObject(overlappingThings[0].gameObject,rightPointerObject,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,true);
                 //I'm not bothering to check for nullity because layer mask should ensure I only collect collectibles.
                 thingIGrabbed=overlappingThings[0].gameObject.GetComponent<collectible>();
-                thingIGrabbed.gameObject.transform.localScale = new Vector3(0.30f, 0.30f, 0.30f);
+                thingIGrabbed.gameObject.transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
             }
         
-        }else if (OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger) || OVRInput.GetUp(OVRInput.RawButton.B) ||OVRInput.GetUp(OVRInput.RawButton.RHandTrigger) || OVRInput.GetUp(OVRInput.RawButton.A)) {
+        } else if (OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger) || OVRInput.GetUp(OVRInput.RawButton.B) ||OVRInput.GetUp(OVRInput.RawButton.RHandTrigger) || OVRInput.GetUp(OVRInput.RawButton.A)) {
             //"R Index Trigger Pressed Drop";
             
             letGo();
 
-        }  else if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger)){
+        } else if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger)){
             // ### "Force Grab Snap";
             forceGrab(false);
 
-        //##########################################################
         } else if (OVRInput.GetDown(OVRInput.RawButton.B)){
             // ### "Magnetic Grip";
             Collider[] overlappingThings=Physics.OverlapSphere(rightPointerObject.transform.position,1,collectiblesMask);
             if (overlappingThings.Length>0){
                 collectible nearestCollectible=getClosestHitObject(overlappingThings);
                 attachGameObjectToAChildGameObject(nearestCollectible.gameObject,rightPointerObject,AttachmentRule.SnapToTarget,AttachmentRule.SnapToTarget,AttachmentRule.KeepWorld,true);
-                thingIGrabbed=nearestCollectible.gameObject.GetComponent<collectible>(); //c
+                thingIGrabbed=nearestCollectible.gameObject.GetComponent<collectible>(); 
             }
         }
         previousPointerPos=rightPointerObject.gameObject.transform.position;
-    } //##################################################################
+    } 
 
     collectible getClosestHitObject(Collider[] hits){ 
         float closestDistance=10000.0f;
@@ -132,12 +129,12 @@ public class TreasureHunter : MonoBehaviour
                 AttachmentRule howToAttach=pressedA?AttachmentRule.KeepWorld:AttachmentRule.SnapToTarget;
                 attachGameObjectToAChildGameObject(outHit.collider.gameObject,rightPointerObject.gameObject,howToAttach,howToAttach,AttachmentRule.KeepWorld,true);
                 thingIGrabbed=outHit.collider.gameObject.GetComponent<collectible>();
-                //thingIGrabbed.gameObject.transform.localScale = new Vector3(0.30f, 0.30f, 0.30f);
+
             } 
          
     }
 
- // ############################################################  NEED TO CHANGE     
+   
     void letGo(){
         if (thingIGrabbed){
 
@@ -167,13 +164,11 @@ public class TreasureHunter : MonoBehaviour
             }else{
                 detachGameObject(thingIGrabbed.gameObject,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
                 simulatePhysics(thingIGrabbed.gameObject,(rightPointerObject.gameObject.transform.position-previousPointerPos)/Time.deltaTime,true);
-                //thingIGrabbed.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
                 thingIGrabbed=null;
             }
         }
         
     }
-    //##################################################################################
 
 
     //since Unity doesn't have sceneComponents like UE4, we can only attach GOs to other GOs which are children of another GO
