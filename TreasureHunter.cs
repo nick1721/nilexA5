@@ -214,7 +214,7 @@ public class TreasureHunter : MonoBehaviour
             }
         }      
     }
-    //WowWow One
+   
     //public static string GetGameObjectPath(collectible obj)
     //{
     //    string path = obj.name;
