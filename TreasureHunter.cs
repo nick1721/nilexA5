@@ -25,6 +25,7 @@ public class TreasureHunter : MonoBehaviour
         int layerMask = 1 << 10;
         layerMask = ~layerMask;
 
+//test comment
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.TransformDirection(Vector3.forward), out outHit, 100.0f, layerMask))
             {              
                 if (Input.GetKeyDown("e")) 
