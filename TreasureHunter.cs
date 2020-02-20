@@ -143,7 +143,7 @@ public class TreasureHunter : MonoBehaviour
     void letGo(){
         if (thingIGrabbed){
 
-            if (rightPointerObject.transform.position.y < playerCamera.transform.position.y && rightPointerObject.transform.position.y > (playerCamera.transform.position.y - 1)) {
+            if (rightPointerObject.transform.position.y < (playerCamera.transform.position.y - 0.6) && rightPointerObject.transform.position.y > (playerCamera.transform.position.y - 1.2)) {
                     
                     GameObject capPrefab = Resources.Load<GameObject>(thingIGrabbed.name);
                     
