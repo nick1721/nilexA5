@@ -215,7 +215,7 @@ public class TreasureHunter : MonoBehaviour
             }
         }      
     }
-   
+    //adding now
     //public static string GetGameObjectPath(collectible obj)
     //{
     //    string path = obj.name;
