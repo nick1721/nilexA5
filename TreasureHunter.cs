@@ -167,7 +167,7 @@ public class TreasureHunter : MonoBehaviour
             }else{
                 detachGameObject(thingIGrabbed.gameObject,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
                 simulatePhysics(thingIGrabbed.gameObject,(rightPointerObject.gameObject.transform.position-previousPointerPos)/Time.deltaTime,true);
-                thingIGrabbed.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                //thingIGrabbed.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
                 thingIGrabbed=null;
             }
         }
