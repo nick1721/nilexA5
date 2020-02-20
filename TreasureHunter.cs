@@ -30,8 +30,6 @@ public class TreasureHunter : MonoBehaviour
 
     public LayerMask collectiblesMask;
 
-    GameObject thingOnGun;
-
     collectible thingIGrabbed;
 
     Vector3 previousPointerPos;
@@ -144,8 +142,8 @@ public class TreasureHunter : MonoBehaviour
         if (thingIGrabbed){
 
             if (rightPointerObject.transform.position.y < (playerCamera.transform.position.y - 0.6) && rightPointerObject.transform.position.y > (playerCamera.transform.position.y - 1.2)) {                    
-                    GameObject capPrefab = Resources.Load<GameObject>(thingIGrabbed.name);
-                    collectible currentCollectible = capPrefab.gameObject.GetComponent<collectible>();
+                    GameObject objGrabbed = Resources.Load<GameObject>(thingIGrabbed.name);
+                    collectible currentCollectible = objGrabbed.gameObject.GetComponent<collectible>();
                     if (inventory.itemsCollected.ContainsKey(currentCollectible)) 
                         {
                             inventory.itemsCollected[currentCollectible]++;
@@ -158,6 +156,7 @@ public class TreasureHunter : MonoBehaviour
                         numOfItems++;
                         scoreSummary.text = "Nick & Alex score: " + score + "\n" +
                                             "no. of items: " + numOfItems;
+                        itemSummary.text = " ";
                 foreach (KeyValuePair<collectible, int> item in inventory.itemsCollected) {
                         itemSummary.text += "\n Num of " + item.Key.name + ": " + item.Value + ", Item Value: " + item.Key.points; 
                 }
@@ -173,6 +172,25 @@ public class TreasureHunter : MonoBehaviour
             }
         }
         
+    }
+
+        void letGo(){
+        if (thingIGrabbed){
+            Collider[] overlappingThingsWithLeftHand=Physics.OverlapSphere(leftPointerObject.transform.position,0.01f,collectiblesMask);
+            if (overlappingThingsWithLeftHand.Length>0){
+                if (thingOnGun){
+                    detachGameObject(thingOnGun,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
+                    simulatePhysics(thingOnGun,Vector3.zero,true);
+                }
+                attachGameObjectToAChildGameObject(overlappingThingsWithLeftHand[0].gameObject,leftPointerObject,AttachmentRule.SnapToTarget,AttachmentRule.SnapToTarget,AttachmentRule.KeepWorld,true);
+                thingOnGun=overlappingThingsWithLeftHand[0].gameObject;
+                thingIGrabbed=null;
+            }else{
+                detachGameObject(thingIGrabbed.gameObject,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
+                simulatePhysics(thingIGrabbed.gameObject,(rightPointerObject.gameObject.transform.position-previousPointerPos)/Time.deltaTime,true);
+                thingIGrabbed=null;
+            }
+        }
     }
     //##################################################################################
 
