@@ -142,23 +142,23 @@ public class TreasureHunter : MonoBehaviour
         if (thingIGrabbed){
 
             if (rightPointerObject.transform.position.y < (playerCamera.transform.position.y - 0.6) && rightPointerObject.transform.position.y > (playerCamera.transform.position.y - 1.2)) {                    
-                    GameObject objGrabbed = Resources.Load<GameObject>(thingIGrabbed.name);
-                    collectible currentCollectible = objGrabbed.gameObject.GetComponent<collectible>();
-                    if (inventory.itemsCollected.ContainsKey(currentCollectible)) 
-                        {
-                            inventory.itemsCollected[currentCollectible]++;
-                        } 
-                        else 
-                        {
-                            inventory.itemsCollected.Add(currentCollectible, 1);
-                        }
-                        score = score + currentCollectible.points;
-                        numOfItems++;
-                        scoreSummary.text = "Nick & Alex score: " + score + "\n" +
-                                            "no. of items: " + numOfItems;
-                        itemSummary.text = " ";
+                GameObject objGrabbed = Resources.Load<GameObject>(thingIGrabbed.name);
+                collectible currentCollectible = objGrabbed.gameObject.GetComponent<collectible>();
+                if (inventory.itemsCollected.ContainsKey(currentCollectible)) 
+                    {
+                        inventory.itemsCollected[currentCollectible]++;
+                    } 
+                    else 
+                    {
+                        inventory.itemsCollected.Add(currentCollectible, 1);
+                    }
+                    score = score + currentCollectible.points;
+                    numOfItems++;
+                    scoreSummary.text = "Nick & Alex's Score: " + score + "\n" +
+                                        "# of items: " + numOfItems;
+                    itemSummary.text = " ";
                 foreach (KeyValuePair<collectible, int> item in inventory.itemsCollected) {
-                        itemSummary.text += "\n Num of " + item.Key.name + ": " + item.Value + ", Item Value: " + item.Key.points; 
+                    itemSummary.text += "\n # of " + item.Key.name + ": " + item.Value + ", Item Value: " + item.Key.points; 
                 }
                 detachGameObject(thingIGrabbed.gameObject,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
                 simulatePhysics(thingIGrabbed.gameObject, Vector3.zero, true);
