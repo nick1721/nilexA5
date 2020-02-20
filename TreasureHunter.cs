@@ -143,43 +143,30 @@ public class TreasureHunter : MonoBehaviour
     void letGo(){
         if (thingIGrabbed){
 
-            if (rightPointerObject.transform.position.y < (playerCamera.transform.position.y - 0.6) && rightPointerObject.transform.position.y > (playerCamera.transform.position.y - 1.2)) {
-                    
+            if (rightPointerObject.transform.position.y < (playerCamera.transform.position.y - 0.6) && rightPointerObject.transform.position.y > (playerCamera.transform.position.y - 1.2)) {                    
                     GameObject capPrefab = Resources.Load<GameObject>(thingIGrabbed.name);
-                    
                     collectible currentCollectible = capPrefab.gameObject.GetComponent<collectible>();
-                    
-                    numOfItems++;
-                    score = score + currentCollectible.points;
-                    if (!inventory.itemsCollected.ContainsKey(currentCollectible)) {
-                        inventory.itemsCollected.Add(currentCollectible, 1);
-                    } else {
-                        inventory.itemsCollected[currentCollectible]++;
-                    } 
-                
-                scoreSummary.text = "Nick & Alex score: " + score + "\n" +
-                                    "no. of items: " + numOfItems;
-
-                
-                itemSummary.text = " ";
-
+                    if (inventory.itemsCollected.ContainsKey(currentCollectible)) 
+                        {
+                            inventory.itemsCollected[currentCollectible]++;
+                        } 
+                        else 
+                        {
+                            inventory.itemsCollected.Add(currentCollectible, 1);
+                        }
+                        score = score + currentCollectible.points;
+                        numOfItems++;
+                        scoreSummary.text = "Nick & Alex score: " + score + "\n" +
+                                            "no. of items: " + numOfItems;
                 foreach (KeyValuePair<collectible, int> item in inventory.itemsCollected) {
-
-                        itemSummary.text += "\n no. of " + item.Key.name + ": " + item.Value + ", item Value: " + item.Key.points; 
-
+                        itemSummary.text += "\n Num of " + item.Key.name + ": " + item.Value + ", Item Value: " + item.Key.points; 
                 }
-
                 detachGameObject(thingIGrabbed.gameObject,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
                 simulatePhysics(thingIGrabbed.gameObject, Vector3.zero, true);
                 Destroy(thingIGrabbed.gameObject);
-                thingIGrabbed=null;
-                
-                
-                
+                thingIGrabbed=null;               
             }else{
-                //winText.text = "NOT ADDED";
                 detachGameObject(thingIGrabbed.gameObject,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld,AttachmentRule.KeepWorld);
-                // IN THIS LINE make it Vector.zero
                 simulatePhysics(thingIGrabbed.gameObject, Vector3.zero, true);
                 thingIGrabbed.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
                 thingIGrabbed=null;
@@ -242,14 +229,7 @@ public class TreasureHunter : MonoBehaviour
                 Rigidbody newRB=target.AddComponent<Rigidbody>();
                 newRB.velocity=oldParentVelocity;
             }
-        }      
-    }
-    //adding now
-    //public static string GetGameObjectPath(collectible obj)
-    //{
-    //    string path = obj.name;
-    //    return path;
-    //}
-
-    
+        }  
+            
+    }  
 }
